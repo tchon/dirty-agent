@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { parse_os, parse_browser } from "./index.mjs";
+import { parse_os, parse_browser } from "./index.js";
 
 const USER_AGENTS = {
   windows: "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
