@@ -2,9 +2,8 @@ const REGX_OS = /^[A-Z]\w+\W+\d+\.\d+(?:\.\d+)?\s+\((?:\w+;\s+(?:\w+;\s+)?)?(\w[
 const REGX_CLIENT = {
   CRAWLER2: /\((?<browserName>[\w\-]*[Bb]ot[\w\-]*)\/(?<browserVersion>\d[\d\._]*)\b/i,
   SAFARI: /\b(?:Mac|iPhone|iPad).*\s+Version\/(?<browserVersion>\d+\.\d+(?:\.\d+)?)\s+(?<browserName>(?:[A-Z]\w+\/\w+\s+)?Safari)/i,
-  FIREFOX: /\bGecko\W+(?:\d[\d\.]*\s+)?(?<browserName>F\w+)\/(?<browserVersion>\d[\.\d]+)\b/i,
-  EDGE_OPR_VIV_YA: /like\s+Gecko.*?\s+(?<browserName>(?:Edg|OPR|Viv|Ya)\w*)\/(?<browserVersion>\d[\d\.]+)/i,
-  CHROME: /like\s+Gecko\W+(?<browserName>Ch?r\w+)\/(?<browserVersion>\d[\d\.]+)/i,
+  EDGE_OPR_VIV_YA_FIREFOX: /\bGecko.*?\s+(?<browserName>(?:Edg|OPR|Viv|Ya|F)\w*)\/(?<browserVersion>\d[\d\.]+)/i,
+  CHROME: /\bGecko\W+(?<browserName>Ch?r\w+)\/(?<browserVersion>\d[\d\.]+)/i,
   CRAWLER: /compatible\W+(?<browserName>\w[^\/\)]+)(?:;|\/(?<browserVersion>\d[\d\._]+))/i,
 };
 
