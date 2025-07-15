@@ -4,33 +4,38 @@ export function is_valid_browser_ua(user_agent) {
   }
   return user_agent.startsWith('Mozilla/');
 }
-
-const REGEX = {
-  OS: /^[A-Z]\w+\W+\d+\.\d+(?:\.\d+)?\s+\((?:\w+;\s+(?:\w+;\s+)?)?(\w[^;\)]+)\s+(\d+(?:[_\.]\d[_\.\d]*)?)\b/,
-  SAFARI: /\b(?:Mac|iPhone|iPad).*\s+Version\/(\d+\.\d+(?:\.\d+)?)\s+((?:[A-Z]\w+\/\w+\s+)?Safari)/i,
-  FIREFOX: /\bGecko\W+(?:\d[\d\.]*\s+)?(F\w+)\/(\d[\.\d]+)\b/i,
+const REGX_OS = /^[A-Z]\w+\W+\d+\.\d+(?:\.\d+)?\s+\((?:\w+;\s+(?:\w+;\s+)?)?(\w[^;\)]+)\s+(\d+(?:[_\.]\d[_\.\d]*)?)\b/;
+const REGX_CLIENT = {
+  SAFARI: /\b(?:Mac|iPhone|iPad).*\s+Version\/(?<browserVersion>\d+\.\d+(?:\.\d+)?)\s+(?<browserName>(?:[A-Z]\w+\/\w+\s+)?Safari)/i,
+  FIREFOX: /\bGecko\W+(?:\d[\d\.]*\s+)?(?<browserName>F\w+)\/(?<browserVersion>\d[\.\d]+)\b/i,
+  EDGE_OPR_VIV_YA: /like\s+Gecko.*?\s+(?<browserName>(?:Edg|OPR|Viv|Ya)\w*)\/(?<browserVersion>\d[\d\.]+)/i,
+  CHROME: /like\s+Gecko\W+(?<browserName>Ch?r\w+)\/(?<browserVersion>\d[\d\.]+)/i,
 };
 
 export function parse_os(user_agent) {
   if (typeof user_agent === "string") {
-    const matches = user_agent.match(REGEX.OS);
+    const matches = user_agent.match(REGX_OS);
     if (matches) {
-      return { os: matches[1], os_version: matches[2] };
+      return { os: matches[1], osVersion: matches[2] };
     }
   }
-  return { os: "unknown", os_version: "unknown" };
+  return { os: "unknown", osVersion: "unknown" };
 }
 
 export function parse_browser(user_agent) {
   if (typeof user_agent === "string") {
-    let matches = user_agent.match(REGEX.SAFARI);
-    if (matches) {
-      return { browser_name: matches[2], browser_version: matches[1] };
-    }
-    matches = user_agent.match(REGEX.FIREFOX);
-    if (matches) {
-      return { browser_name: matches[1], browser_version: matches[2] };
+    const clients = Object.keys(REGX_CLIENT);
+    for (let i = 0; i < clients.length; i++) {
+      const client = clients[i];
+      console.log(`>> client: ${client}`)
+      const match = REGX_CLIENT[client].exec(user_agent);
+      console.log(`>> match: ${match}`)
+      if (match) {
+        const { browserName, browserVersion } = match.groups;
+        return { browserName, browserVersion };
+        break;
+      }
     }
   }
-  return { os: "unknown", os_version: "unknown" };
+  return { browserName: "unknown", browserVersion: "unknown" };
 }
