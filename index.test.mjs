@@ -54,6 +54,19 @@ const USER_AGENTS = {
   chrome_android: "Mozilla/5.0 (Linux; Android 10; LM-Q720) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36",
   chrome_iphone: "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1",
   chrome_ipad: "Mozilla/5.0 (iPod; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/87.0.4280.77 Mobile/15E148 Safari/604.1",
+  crawler_gpt: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.1; +https://openai.com/gptbot)",
+  crawler_oai: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/2.0; +https://openai.com/bot)",
+  crawler_anthropic: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ClaudeBot/1.0; +claudebot@anthropic.com)",
+  crawler_perplexity: "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)",
+  crawler_google: "Mozilla/5.0 (compatible; Google-Extended/1.0; +http://www.google.com/bot.html)",
+  crawler_bing: "Mozilla/5.0 (compatible; BingBot/1.0; +http://www.bing.com/bot.html)",
+  crawler_amazon: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot)",
+  crawler_apple: "Mozilla/5.0 (compatible; Applebot-Extended/1.0; +http://www.apple.com/bot.html)",
+  crawler_fb: "Mozilla/5.0 (compatible; FacebookBot/1.0; +http://www.facebook.com/bot.html)",
+  crawler_meta: "Mozilla/5.0 (compatible; meta-externalagent/1.1 (+https://developers.facebook.com/docs/sharing/webmasters/crawler))",
+  crawler_cohere: "Mozilla/5.0 (compatible; cohere-ai/1.0; +http://www.cohere.ai/bot.html)",
+  crawler_mistral: "Mozilla/5.0 (compatible; MistralAI-User/1.0; +https://mistral.ai/bot)",
+  crawler_yahoo: "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)"
 };
 
 describe("parse_os", () => {
@@ -349,5 +362,108 @@ describe("parse_browser", () => {
 
     assert.equal(out.browserName, "CriOS");
     assert.equal(out.browserVersion, "87.0.4280.77");
+  });
+
+  it("should parse Crawler for GPT", () => {
+    const ua = USER_AGENTS.crawler_gpt;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "GPTBot");
+    assert.equal(out.browserVersion, "1.1");
+  });
+
+  it("should parse Crawler for OpenAI", () => {
+    const ua = USER_AGENTS.crawler_oai;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "ChatGPT-User");
+    assert.equal(out.browserVersion, "2.0");
+  });
+
+  it("should parse Crawler for Anthropic", () => {
+    const ua = USER_AGENTS.crawler_anthropic;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "ClaudeBot");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Perplexity", () => {
+    const ua = USER_AGENTS.crawler_perplexity;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "PerplexityBot");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for GoogleBot", () => {
+    const ua = USER_AGENTS.crawler_google;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "Google-Extended");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Bing", () => {
+    const ua = USER_AGENTS.crawler_bing;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "BingBot");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Amazon", () => {
+    const ua = USER_AGENTS.crawler_amazon;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "Amazonbot");
+    assert.equal(out.browserVersion, "0.1");
+  });
+
+  it("should parse Crawler for Apple", () => {
+    const ua = USER_AGENTS.crawler_apple;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "Applebot-Extended");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Facebook", () => {
+    const ua = USER_AGENTS.crawler_fb;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "FacebookBot");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Meta", () => {
+    const ua = USER_AGENTS.crawler_meta;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "meta-externalagent");
+    assert.equal(out.browserVersion, "1.1");
+  });
+
+  it("should parse Crawler for Cohere", () => {
+    const ua = USER_AGENTS.crawler_cohere;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "cohere-ai");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Mistral", () => {
+    const ua = USER_AGENTS.crawler_mistral;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "MistralAI-User");
+    assert.equal(out.browserVersion, "1.0");
+  });
+
+  it("should parse Crawler for Yahoo Slurp", () => {
+    const ua = USER_AGENTS.crawler_yahoo;
+    const out = parse_browser(ua);
+
+    assert.equal(out.browserName, "Yahoo! Slurp");
   });
 });
