@@ -1,9 +1,3 @@
-export function is_valid_browser_ua(user_agent) {
-  if (typeof user_agent !== "string") {
-    return false;
-  }
-  return user_agent.startsWith('Mozilla/');
-}
 const REGX_OS = /^[A-Z]\w+\W+\d+\.\d+(?:\.\d+)?\s+\((?:\w+;\s+(?:\w+;\s+)?)?(\w[^;\)]+)\s+(\d+(?:[_\.]\d[_\.\d]*)?)\b/;
 const REGX_CLIENT = {
   CRAWLER2: /\((?<browserName>[\w\-]*[Bb]ot[\w\-]*)\/(?<browserVersion>\d[\d\._]*)\b/i,
@@ -29,9 +23,7 @@ export function parse_browser(user_agent) {
     const clients = Object.keys(REGX_CLIENT);
     for (let i = 0; i < clients.length; i++) {
       const client = clients[i];
-      console.log(`>> client: ${client}`)
       const match = REGX_CLIENT[client].exec(user_agent);
-      console.log(`>> match: ${match}`)
       if (match) {
         const { browserName, browserVersion } = match.groups;
         return { browserName, browserVersion };

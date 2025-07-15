@@ -1,20 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { is_valid_browser_ua, parse_os, parse_browser } from "./index.mjs";
-
-describe("is_valid_browser_ua", () => {
-  it("should test if user-agent follows convention", () => {
-    const ua = "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko";
-
-    assert.equal(is_valid_browser_ua(ua), true);
-  });
-
-  it("should fail if user-agent is non-standard", () => {
-    const ua = "DuckDuckBot/1.1; (+http://duckduckgo.com/duckduckbot.html)";
-
-    assert.equal(is_valid_browser_ua(ua), false);
-  });
-});
+import { parse_os, parse_browser } from "./index.mjs";
 
 const USER_AGENTS = {
   windows: "Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
@@ -156,7 +142,6 @@ describe("parse_browser", () => {
   it("should parse Safari on Desktop", () => {
     const ua = USER_AGENTS.safari_desktop;
     const out = parse_browser(ua);
-    console.log('>>>> out', JSON.stringify(out));
 
     assert.equal(out.browserName, "Safari");
     assert.equal(out.browserVersion, "7.0.3");
@@ -165,7 +150,6 @@ describe("parse_browser", () => {
   it("should parse Safari on iPhone", () => {
     const ua = USER_AGENTS.safari_iphone;
     const out = parse_browser(ua);
-    console.log('>>>> out', JSON.stringify(out));
 
     assert.equal(out.browserName, "Mobile/15E148 Safari");
     assert.equal(out.browserVersion, "14.0");
@@ -174,7 +158,6 @@ describe("parse_browser", () => {
   it("should parse Safari on iPad", () => {
     const ua = USER_AGENTS.safari_ipad;
     const out = parse_browser(ua);
-    console.log('>>>> out', JSON.stringify(out));
 
     assert.equal(out.browserName, "Mobile/15E148 Safari");
     assert.equal(out.browserVersion, "14.0");
