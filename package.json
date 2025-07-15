@@ -1,0 +1,23 @@
+{
+  "name": "dirty-agent",
+  "version": "1.0.0",
+  "description": "A dirty parser for your user-agent with zero dependencies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchon/dirty-agent.git"
+  },
+  "keywords": [
+    "user-agent",
+    "parse"
+  ],
+  "author": "tchon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tchon/dirty-agent/issues"
+  },
+  "homepage": "https://github.com/tchon/dirty-agent#readme"
+}
